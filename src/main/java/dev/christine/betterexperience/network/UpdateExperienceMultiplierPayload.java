@@ -6,12 +6,12 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 
-public record UpdateExperienceMultiplierPayload(int multiplier) implements CustomPayload {
+public record UpdateExperienceMultiplierPayload(double multiplier) implements CustomPayload {
     public static final Id<UpdateExperienceMultiplierPayload> ID =
             new Id<>(BetterExperience.id("update_experience_multiplier"));
     public static final PacketCodec<RegistryByteBuf, UpdateExperienceMultiplierPayload> CODEC =
             PacketCodec.tuple(
-                    PacketCodecs.VAR_INT,
+                    PacketCodecs.DOUBLE,
                     UpdateExperienceMultiplierPayload::multiplier,
                     UpdateExperienceMultiplierPayload::new
             );

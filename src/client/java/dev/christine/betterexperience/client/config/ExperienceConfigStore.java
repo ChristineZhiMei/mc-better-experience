@@ -22,7 +22,7 @@ public final class ExperienceConfigStore {
     private final Path configPath = FabricLoader.getInstance()
             .getConfigDir()
             .resolve("better-experience.json");
-    private int multiplier = ExperienceConfig.DEFAULT_MULTIPLIER;
+    private double multiplier = ExperienceConfig.DEFAULT_MULTIPLIER;
 
     private ExperienceConfigStore() {
     }
@@ -31,11 +31,11 @@ public final class ExperienceConfigStore {
         return INSTANCE;
     }
 
-    public int getMultiplier() {
+    public double getMultiplier() {
         return multiplier;
     }
 
-    public void setMultiplier(int multiplier) {
+    public void setMultiplier(double multiplier) {
         this.multiplier = ExperienceConfig.clampMultiplier(multiplier);
     }
 
@@ -48,7 +48,7 @@ public final class ExperienceConfigStore {
         try (Reader reader = Files.newBufferedReader(configPath)) {
             JsonObject config = JsonParser.parseReader(reader).getAsJsonObject();
             if (config.has(MULTIPLIER_KEY)) {
-                setMultiplier(config.get(MULTIPLIER_KEY).getAsInt());
+                setMultiplier(config.get(MULTIPLIER_KEY).getAsDouble());
             }
         } catch (IOException | RuntimeException error) {
             BetterExperience.LOGGER.warn(

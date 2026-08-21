@@ -20,7 +20,7 @@ public final class BetterExperienceClient implements ClientModInitializer {
             return;
         }
 
-        int multiplier = ExperienceConfigStore.getInstance().getMultiplier();
+        double multiplier = ExperienceConfigStore.getInstance().getMultiplier();
         ClientPlayNetworking.send(new UpdateExperienceMultiplierPayload(multiplier));
     }
 }

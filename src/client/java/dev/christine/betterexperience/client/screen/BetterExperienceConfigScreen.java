@@ -2,7 +2,6 @@ package dev.christine.betterexperience.client.screen;
 
 import dev.christine.betterexperience.client.BetterExperienceClient;
 import dev.christine.betterexperience.client.config.ExperienceConfigStore;
-import dev.christine.betterexperience.config.ExperienceConfig;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -11,9 +10,13 @@ import net.minecraft.text.Text;
 
 public final class BetterExperienceConfigScreen extends Screen {
     private static final int PANEL_WIDTH = 310;
+    private static final double[] MULTIPLIER_PRESETS = {
+            0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+            1.0, 2.0, 3.0, 5.0, 10.0, 20.0, 50.0, 100.0
+    };
 
     private final Screen parent;
-    private int multiplier;
+    private double multiplier;
 
     public BetterExperienceConfigScreen(Screen parent) {
         super(Text.translatable("screen.better_experience.config.title"));
@@ -70,6 +73,36 @@ public final class BetterExperienceConfigScreen extends Screen {
         return false;
     }
 
+    private static int findClosestPresetIndex(double multiplier) {
+        int closestIndex = 0;
+        double closestDistance = Math.abs(multiplier - MULTIPLIER_PRESETS[0]);
+
+        for (int index = 1; index < MULTIPLIER_PRESETS.length; index++) {
+            double distance = Math.abs(multiplier - MULTIPLIER_PRESETS[index]);
+            if (distance < closestDistance) {
+                closestIndex = index;
+                closestDistance = distance;
+            }
+        }
+
+        return closestIndex;
+    }
+
+    private static double presetIndexToSliderValue(int index) {
+        return (double) index / (MULTIPLIER_PRESETS.length - 1);
+    }
+
+    private static int sliderValueToPresetIndex(double value) {
+        return (int) Math.round(value * (MULTIPLIER_PRESETS.length - 1));
+    }
+
+    private static String formatMultiplier(double multiplier) {
+        if (multiplier == Math.rint(multiplier)) {
+            return Integer.toString((int) multiplier);
+        }
+        return String.format(java.util.Locale.ROOT, "%.1f", multiplier);
+    }
+
     private final class ExperienceMultiplierSlider extends SliderWidget {
         private ExperienceMultiplierSlider(int x, int y, int width, int height) {
             super(
@@ -78,8 +111,9 @@ public final class BetterExperienceConfigScreen extends Screen {
                     width,
                     height,
                     Text.empty(),
-                    (double) multiplier / ExperienceConfig.MAX_MULTIPLIER
+                    presetIndexToSliderValue(findClosestPresetIndex(multiplier))
             );
+            multiplier = MULTIPLIER_PRESETS[sliderValueToPresetIndex(value)];
             updateMessage();
         }
 
@@ -87,13 +121,15 @@ public final class BetterExperienceConfigScreen extends Screen {
         protected void updateMessage() {
             setMessage(Text.translatable(
                     "screen.better_experience.config.experience_multiplier",
-                    multiplier
+                    formatMultiplier(multiplier)
             ));
         }
 
         @Override
         protected void applyValue() {
-            multiplier = (int) Math.round(value * ExperienceConfig.MAX_MULTIPLIER);
+            int presetIndex = sliderValueToPresetIndex(value);
+            value = presetIndexToSliderValue(presetIndex);
+            multiplier = MULTIPLIER_PRESETS[presetIndex];
             updateMessage();
         }
     }

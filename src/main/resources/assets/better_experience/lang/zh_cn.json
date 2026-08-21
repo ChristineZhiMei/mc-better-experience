@@ -1,6 +1,6 @@
 {
-  "menu.better_experience.config": "更高的体验",
-  "screen.better_experience.config.title": "更高的体验",
+  "menu.better_experience.config": "更好的体验",
+  "screen.better_experience.config.title": "更好的体验",
   "screen.better_experience.config.description": "调整获得经验时的倍率",
   "screen.better_experience.config.experience_multiplier": "经验倍率：x%s"
 }
