@@ -1,0 +1,6 @@
+{
+  "menu.better_experience.config": "Better Experience",
+  "screen.better_experience.config.title": "Better Experience",
+  "screen.better_experience.config.description": "Adjust the multiplier applied when gaining experience",
+  "screen.better_experience.config.experience_multiplier": "Experience Multiplier: x%s"
+}

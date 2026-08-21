@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "dev.christine.betterexperience.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "OptionsScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
