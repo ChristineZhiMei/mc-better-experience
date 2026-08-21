@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "better_experience",
+  "version": "${version}",
+  "name": "Better Experience",
+  "description": "Adds configurable experience multipliers to Minecraft.",
+  "authors": [
+    "Christine"
+  ],
+  "contact": {
+    "sources": "https://github.com/ChristineZhiMei/mc-better-experience"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.christine.betterexperience.BetterExperience"
+    ],
+    "client": [
+      "dev.christine.betterexperience.client.BetterExperienceClient"
+    ]
+  },
+  "mixins": [
+    "better_experience.mixins.json",
+    {
+      "config": "better_experience.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.12",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
