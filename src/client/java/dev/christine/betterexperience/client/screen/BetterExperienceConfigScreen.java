@@ -12,7 +12,8 @@ public final class BetterExperienceConfigScreen extends Screen {
     private static final int PANEL_WIDTH = 310;
     private static final double[] MULTIPLIER_PRESETS = {
             0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-            1.0, 2.0, 3.0, 5.0, 10.0, 20.0, 50.0, 100.0
+            1.0, 2.0, 3.0, 5.0, 10.0, 20.0, 50.0, 100.0,
+            200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0
     };
 
     private final Screen parent;
